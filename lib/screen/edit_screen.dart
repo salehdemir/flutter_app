@@ -104,7 +104,7 @@ class _EditScreenState extends State<EditScreen> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Edit User'),
+          title: Text('Edit User Name'),
           actions: [
             IconButton(
               onPressed: () {
