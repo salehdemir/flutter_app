@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_first_test/models/user.dart';
 import 'package:flutter_first_test/screen/user_list_screen.dart';
 import 'package:provider/provider.dart';
 import '../widget/image_input.dart';
+import '../provider/provider.dart';
 
 class AddUserScreen extends StatefulWidget {
   static const routeName = './add-user';
@@ -63,7 +63,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
       return;
     }
     try {
-      await Provider.of<Users>(context, listen: false).addUser(
+      await Provider.of<UsersProvider>(context, listen: false).addUser(
           _titleController.text,
           _savedImage!,
           _jobController.text,

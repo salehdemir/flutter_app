@@ -4,7 +4,7 @@ import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
 import 'package:provider/provider.dart';
 import '../screen/add_user_screen.dart';
-import '../models/user.dart';
+import '../provider/provider.dart';
 
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});
@@ -15,7 +15,7 @@ class UserListScreen extends StatefulWidget {
 
 class _UserListScreenState extends State<UserListScreen> {
   Future<void> _refreshUsers() async {
-    await Provider.of<Users>(context, listen: false).fetchData();
+    await Provider.of<UsersProvider>(context, listen: false).fetchData();
   }
 
   @override
@@ -34,13 +34,14 @@ class _UserListScreenState extends State<UserListScreen> {
       body: RefreshIndicator(
         onRefresh: _refreshUsers,
         child: FutureBuilder(
-          future: Provider.of<Users>(context, listen: false).fetchData(),
+          future:
+              Provider.of<UsersProvider>(context, listen: false).fetchData(),
           builder: (context, snapshot) => snapshot.connectionState ==
                   ConnectionState.waiting
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : Consumer<Users>(
+              : Consumer<UsersProvider>(
                   child: Container(
                     margin: EdgeInsets.only(top: 10),
                     padding: EdgeInsets.all(16),
@@ -105,7 +106,8 @@ class _UserListScreenState extends State<UserListScreen> {
                                                 child: Text('No')),
                                             TextButton(
                                                 onPressed: () {
-                                                  Provider.of<Users>(context,
+                                                  Provider.of<UsersProvider>(
+                                                          context,
                                                           listen: false)
                                                       .removeItem(
                                                           userData.users[i].id);

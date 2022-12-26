@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/user.dart';
 import '../screen/user_list_screen.dart';
 import '../widget/image_input.dart';
+import '../provider/provider.dart';
 
 class EditScreen extends StatefulWidget {
   static const routeName = './edit-user';
@@ -48,7 +49,8 @@ class _EditScreenState extends State<EditScreen> {
     if (_isInit) {
       final userId = ModalRoute.of(context)!.settings.arguments as String;
       if (userId != null) {
-        _editUser = Provider.of<Users>(context, listen: false).findById(userId);
+        _editUser =
+            Provider.of<UsersProvider>(context, listen: false).findById(userId);
         _isInitValue = {
           'id': _editUser.id,
           'title': _editUser.title,
@@ -91,7 +93,7 @@ class _EditScreenState extends State<EditScreen> {
         image: _pickedImage == null ? _storedImage! : _pickedImage!,
         id: _isInitValue['id']);
 
-    await Provider.of<Users>(context, listen: false)
+    await Provider.of<UsersProvider>(context, listen: false)
         .updateItem(_isInitValue['id'], _editUser);
     setState(() {
       _isLoading = false;
@@ -122,7 +124,7 @@ class _EditScreenState extends State<EditScreen> {
                             child: Text('No')),
                         TextButton(
                             onPressed: () {
-                              Provider.of<Users>(context, listen: false)
+                              Provider.of<UsersProvider>(context, listen: false)
                                   .removeItem(_editUser.id);
                               // Navigator.pop(context);
                               Navigator.push(
